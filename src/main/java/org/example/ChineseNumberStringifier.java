@@ -4,7 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class ChineseNumberStringifier {
+public class ChineseNumberStringifier extends AbstractStringifier {
+    private final int n;
+    public ChineseNumberStringifier(int n) {
+        this.n = n;
+    }
     private final Map<Integer, String> chineseNumMap = new HashMap<>() {
         {
             put(1, "壱");
@@ -27,8 +31,8 @@ public class ChineseNumberStringifier {
         }
     };
 
-    public String stringify(int n) {
-        String str = Integer.valueOf(n).toString();
+    public String stringify() {
+        String str = Integer.valueOf(this.n).toString();
         List<String> strList = reversal(Arrays.asList(str.split("")));
         List<String> chineseStrList = strList.stream()
             .reduce(

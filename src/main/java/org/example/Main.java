@@ -2,9 +2,10 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        ChineseNumberStringifier cns = new ChineseNumberStringifier();
-        String result = cns.stringify(45013);
+        AbstractStringifier cns = new ChineseNumberStringifier(45013);
+        cns.display();
 
-        System.out.println(result);
+        AbstractStringifier rns = new RomanNumberStringifier(1024);
+        rns.display();
     }
 }
