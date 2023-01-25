@@ -27,7 +27,7 @@ public class ChineseNumberStringifier {
         }
     };
 
-    String stringify(int n) {
+    public String stringify(int n) {
         String str = Integer.valueOf(n).toString();
         List<String> strList = reversal(Arrays.asList(str.split("")));
         List<String> chineseStrList = strList.stream()
