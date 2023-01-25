@@ -5,9 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ChineseNumberStringifier extends AbstractStringifier {
-    private final int n;
     public ChineseNumberStringifier(int n) {
-        this.n = n;
+        super(n);
     }
     private final Map<Integer, String> chineseNumMap = new HashMap<>() {
         {
@@ -31,35 +30,23 @@ public class ChineseNumberStringifier extends AbstractStringifier {
         }
     };
 
-    public String stringify() {
-        String str = Integer.valueOf(this.n).toString();
-        List<String> strList = reversal(Arrays.asList(str.split("")));
+    public List<String> respectivelyMethod(List<String> strList) {
         List<String> chineseStrList = strList.stream()
-            .reduce(
-                new ArrayList<String>(),
-                (arr, s) -> {
-                    int i = arr.size();
-                    String chineseNum = chineseNumMap.get(Integer.parseInt(s));
-                    if(s.equals("0")) {
-                        arr.add(null);
-                    } else if (i == 0) {
-                        arr.add(chineseNum);
-                    } else {
-                        arr.add(chineseNum + chineseRankMap.get(i));
-                    }
-                    return arr;
-                }, (arr1, arr2) -> null
-            ).stream().filter(Objects::nonNull).toList();
-        List<String> fixedStrList = reversal(chineseStrList);
-
-        return String.join("", fixedStrList);
-    };
-
-    private List<String> reversal(List<String> list) {
-        List<String> newList = new ArrayList<>();
-        for (String s : list) {
-            newList.add(0, s);
-        }
-        return newList;
-    };
+                .reduce(
+                        new ArrayList<String>(),
+                        (arr, s) -> {
+                            int i = arr.size();
+                            String chineseNum = this.chineseNumMap.get(Integer.parseInt(s));
+                            if(s.equals("0")) {
+                                arr.add(null);
+                            } else if (i == 0) {
+                                arr.add(chineseNum);
+                            } else {
+                                arr.add(chineseNum + this.chineseRankMap.get(i));
+                            }
+                            return arr;
+                        }, (arr1, arr2) -> null
+                ).stream().filter(Objects::nonNull).toList();
+        return chineseStrList;
+    }
 }

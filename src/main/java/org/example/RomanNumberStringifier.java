@@ -1,41 +1,81 @@
 package org.example;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RomanNumberStringifier extends AbstractStringifier {
-    private final int n;
     public RomanNumberStringifier(int n) {
-        this.n = n;
+        super(n);
     }
-    private final Map<Integer, String> chineseNumMap = new LinkedHashMap<>() {
+    private final Map<Integer, String> romaOnesPlace = new HashMap<>() {
         {
-            put(1000, "M");
-            put(900, "CM");
-            put(500, "D");
-            put(400, "CD");
-            put(100, "C");
-            put(90, "XC");
-            put(50, "L");
-            put(40, "XL");
-            put(10, "X");
-            put(9, "IX");
-            put(5, "V");
-            put(4, "IV");
             put(1, "I");
+            put(2, "II");
+            put(3, "III");
+            put(4, "IV");
+            put(5, "V");
+            put(6, "VI");
+            put(7, "VII");
+            put(8, "VIII");
+            put(9, "IX");
+        }
+    };
+    private final Map<Integer, String> romaTensPlace = new HashMap<>() {
+        {
+            put(1, "X");
+            put(2, "XX");
+            put(3, "XXX");
+            put(4, "XL");
+            put(5, "L");
+            put(6, "LX");
+            put(7, "LXX");
+            put(8, "LXXX");
+            put(9, "XC");
+        }
+    };
+    private final Map<Integer, String> romaHundredsPlace = new HashMap<>() {
+        {
+            put(1, "C");
+            put(2, "CC");
+            put(3, "CCC");
+            put(4, "CD");
+            put(5, "D");
+            put(6, "DC");
+            put(7, "DCC");
+            put(8, "DCCC");
+            put(9, "CM");
+        }
+    };
+    private final Map<Integer, String> romaThousandsPlace = new HashMap<>() {
+        {
+            put(1, "M");
+            put(2, "MM");
+            put(3, "MMM");
         }
     };
 
-    public String stringify() {
-        String romanized = "";
-        int newN = this.n;
-
-        for (Map.Entry<Integer, String> entry : chineseNumMap.entrySet()) {
-            while (entry.getKey() <= newN) {
-                romanized += entry.getValue();
-                newN -= entry.getKey();
-            }
-        }
-        return romanized;
+    public List<String> respectivelyMethod(List<String> strList) {
+        List<String> chineseStrList = strList.stream()
+                .reduce(
+                        new ArrayList<String>(),
+                        (arr, s) -> {
+                            int i = arr.size();
+                            Integer key = Integer.parseInt(s);
+                            switch(i){
+                                case 0:
+                                    arr.add(this.romaOnesPlace.get(key));
+                                    break;
+                                case 1:
+                                    arr.add(this.romaTensPlace.get(key));
+                                    break;
+                                case 2:
+                                    arr.add(this.romaHundredsPlace.get(key));
+                                    break;
+                                case 3:
+                                    arr.add(this.romaThousandsPlace.get(key));
+                            }
+                            return arr;
+                        }, (arr1, arr2) -> null
+                ).stream().filter(Objects::nonNull).toList();
+        return chineseStrList;
     }
 }
