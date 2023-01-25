@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class ChineseNumberStringifier {
     private final Map<Integer, String> chineseNumMap = new HashMap<>() {
@@ -29,16 +28,7 @@ public class ChineseNumberStringifier {
     String stringify(int n) {
         String str = Integer.valueOf(n).toString();
         List<String> strList = reversal(Arrays.asList(str.split("")));
-        List<String> chineseStrList = IntStream
-                .range(0, strList.size())
-                .mapToObj(i -> {
-                    String s = strList.get(i);
-                    if(s.equals("0")) return "";
-                    String chineseNum = chineseNumMap.get(Integer.parseInt(s));
-                    if(i == 0) return chineseNum;
-                    return chineseNum + chineseRankMap.get(i);
-                })
-                .toList();
+        List<String> chineseStrList = transToChinese(strList, chineseNumMap, chineseRankMap);
         List<String> fixedStrList = reversal(chineseStrList);
         return String.join("", fixedStrList);
     };
@@ -50,4 +40,19 @@ public class ChineseNumberStringifier {
         }
         return newList;
     };
+
+    private List<String> transToChinese(List<String> list, Map<Integer, String> chineseNumMap, Map<Integer, String> chineseRankMap) {
+        List<String> newList = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++) {
+            String s = list.get(i);
+            if(s.equals("0")) continue;
+            String chineseNum = chineseNumMap.get(Integer.parseInt(s));
+            if(i == 0) {
+                newList.add(chineseNum);
+                continue;
+            };
+            newList.add(chineseNum + chineseRankMap.get(i));
+        }
+        return newList;
+    }
 }
