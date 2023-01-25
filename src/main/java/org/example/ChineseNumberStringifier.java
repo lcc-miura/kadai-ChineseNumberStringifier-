@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ChineseNumberStringifier {
@@ -29,24 +30,31 @@ public class ChineseNumberStringifier {
     String stringify(int n) {
         String str = Integer.valueOf(n).toString();
         List<String> strList = reversal(Arrays.asList(str.split("")));
-        List<String> chineseStrList = IntStream
-                .range(0, strList.size())
-                .mapToObj(i -> {
-                    String s = strList.get(i);
-                    if(s.equals("0")) return "";
+        List<String> chineseStrList = strList.stream()
+            .reduce(
+                new ArrayList<String>(),
+                (arr, s) -> {
+                    int i = arr.size();
                     String chineseNum = chineseNumMap.get(Integer.parseInt(s));
-                    if(i == 0) return chineseNum;
-                    return chineseNum + chineseRankMap.get(i);
-                })
-                .toList();
+                    if(s.equals("0")) {
+                        arr.add(null);
+                    } else if (i == 0) {
+                        arr.add(chineseNum);
+                    } else {
+                        arr.add(chineseNum + chineseRankMap.get(i));
+                    }
+                    return arr;
+                }, (arr1, arr2) -> null
+            ).stream().filter(Objects::nonNull).toList();
         List<String> fixedStrList = reversal(chineseStrList);
+
         return String.join("", fixedStrList);
     };
 
     private List<String> reversal(List<String> list) {
         List<String> newList = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++) {
-            newList.add(0, list.get(i));
+        for (String s : list) {
+            newList.add(0, s);
         }
         return newList;
     };
