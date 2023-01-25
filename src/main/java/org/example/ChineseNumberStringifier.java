@@ -29,6 +29,8 @@ public class ChineseNumberStringifier {
     String stringify(int n) {
         String str = Integer.valueOf(n).toString();
         List<String> strList = reversal(Arrays.asList(str.split("")));
+
+//        IntStreamを使うパターン
         List<String> chineseStrList = IntStream
                 .range(0, strList.size())
                 .mapToObj(i -> {
@@ -39,6 +41,15 @@ public class ChineseNumberStringifier {
                     return chineseNum + chineseRankMap.get(i);
                 })
                 .toList();
+
+//        Reduceを使うパターン
+//        List<String> chineseStrList = strList.stream().reduce(
+//                new ArrayList<>(),
+//                (arr, s) -> {
+//                    // mapToObjと同じ処理
+//                }, (arr1, arr2) -> null
+//        );
+
         List<String> fixedStrList = reversal(chineseStrList);
         return String.join("", fixedStrList);
     };
