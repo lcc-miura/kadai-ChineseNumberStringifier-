@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStringifier {
-    public abstract List<String> transMapping(List<String> strList);
+    protected abstract List<String> transMapping(List<String> strList);
 
     public final String stringify(int n) {
         String str = Integer.valueOf(n).toString();
