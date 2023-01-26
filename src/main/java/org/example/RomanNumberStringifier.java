@@ -3,9 +3,6 @@ package org.example;
 import java.util.*;
 
 public class RomanNumberStringifier extends AbstractStringifier {
-    public RomanNumberStringifier(int n) {
-        super(n);
-    }
     private final Map<Integer, String> romaOnesPlace = new HashMap<>() {
         {
             put(1, "I");
@@ -53,7 +50,8 @@ public class RomanNumberStringifier extends AbstractStringifier {
         }
     };
 
-    public List<String> respectivelyMethod(List<String> strList) {
+    @Override
+    public List<String> transMapping(List<String> strList) {
         List<String> chineseStrList = strList.stream()
                 .reduce(
                         new ArrayList<String>(),

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ChineseNumberStringifierTest {
     final int convertedInt = 45013;
-    final ChineseNumberStringifier target = new ChineseNumberStringifier(convertedInt);
+    final ChineseNumberStringifier target = new ChineseNumberStringifier();
     final String expected = "肆萬伍阡壱拾参";
 
 
@@ -15,7 +15,7 @@ public class ChineseNumberStringifierTest {
 
         @Test
         void returnsStringifyNumber() {
-            var result = target.getString();
+            var result = target.stringify(convertedInt);
 
             assertEquals(expected, result);
         }

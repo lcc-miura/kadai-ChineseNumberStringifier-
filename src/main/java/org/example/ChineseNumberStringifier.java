@@ -5,9 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ChineseNumberStringifier extends AbstractStringifier {
-    public ChineseNumberStringifier(int n) {
-        super(n);
-    }
     private final Map<Integer, String> chineseNumMap = new HashMap<>() {
         {
             put(1, "壱");
@@ -30,7 +27,8 @@ public class ChineseNumberStringifier extends AbstractStringifier {
         }
     };
 
-    public List<String> respectivelyMethod(List<String> strList) {
+    @Override
+    public List<String> transMapping(List<String> strList) {
         List<String> chineseStrList = strList.stream()
                 .reduce(
                         new ArrayList<String>(),
