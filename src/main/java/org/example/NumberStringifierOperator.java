@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractStringifier {
-    protected abstract List<String> transMapping(List<String> strList);
+public class NumberStringifierOperator {
+    private final StrategyNumberStringifier strategyNumberStringifier;
 
-    public final String stringify(int n) {
+    public NumberStringifierOperator(StrategyNumberStringifier strategy) {
+        this.strategyNumberStringifier = strategy;
+    }
+
+    public String stringify(int n) {
         String str = Integer.valueOf(n).toString();
         List<String> strList = reversal(Arrays.asList(str.split("")));
-        List<String> chineseStrList = this.transMapping(strList);
+        List<String> chineseStrList = strategyNumberStringifier.transMapping(strList);
         List<String> fixedStrList = reversal(chineseStrList);
         return String.join("", fixedStrList);
-    };
+    }
 
     private List<String> reversal(List<String> list) {
         List<String> newList = new ArrayList<>();

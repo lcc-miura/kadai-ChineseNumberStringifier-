@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.*;
 
-public class RomanNumberStringifier extends AbstractStringifier {
+public class StrategyRomanNumberStringifier implements StrategyNumberStringifier {
     private static final Map<Integer, String> ROMA_ONES_PLACE = Map.of(
             1, "I",
             2, "II",
@@ -43,7 +43,7 @@ public class RomanNumberStringifier extends AbstractStringifier {
     );
 
     @Override
-    protected List<String> transMapping(List<String> strList) {
+    public List<String> transMapping(List<String> strList) {
         List<String> chineseStrList = strList.stream()
                 .reduce(
                         new ArrayList<String>(),

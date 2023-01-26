@@ -1,10 +1,8 @@
 package org.example;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class ChineseNumberStringifier extends AbstractStringifier {
+public class StrategyChineseNumberStringifier implements StrategyNumberStringifier {
     private static final Map<Integer, String> CHINESE_NUM_MAP = Map.of(
             1, "壱",
             2, "弐",
@@ -24,7 +22,7 @@ public class ChineseNumberStringifier extends AbstractStringifier {
     );
 
     @Override
-    protected List<String> transMapping(List<String> strList) {
+    public List<String> transMapping(List<String> strList) {
         List<String> chineseStrList = strList.stream()
                 .reduce(
                         new ArrayList<String>(),
