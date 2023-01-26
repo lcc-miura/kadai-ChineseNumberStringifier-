@@ -24,7 +24,7 @@ public class ChineseNumberStringifier extends AbstractStringifier {
     );
 
     @Override
-    public List<String> transMapping(List<String> strList) {
+    protected List<String> transMapping(List<String> strList) {
         List<String> chineseStrList = strList.stream()
                 .reduce(
                         new ArrayList<String>(),
