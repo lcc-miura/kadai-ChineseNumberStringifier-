@@ -3,52 +3,44 @@ package org.example;
 import java.util.*;
 
 public class RomanNumberStringifier extends AbstractStringifier {
-    private final Map<Integer, String> romaOnesPlace = new HashMap<>() {
-        {
-            put(1, "I");
-            put(2, "II");
-            put(3, "III");
-            put(4, "IV");
-            put(5, "V");
-            put(6, "VI");
-            put(7, "VII");
-            put(8, "VIII");
-            put(9, "IX");
-        }
-    };
-    private final Map<Integer, String> romaTensPlace = new HashMap<>() {
-        {
-            put(1, "X");
-            put(2, "XX");
-            put(3, "XXX");
-            put(4, "XL");
-            put(5, "L");
-            put(6, "LX");
-            put(7, "LXX");
-            put(8, "LXXX");
-            put(9, "XC");
-        }
-    };
-    private final Map<Integer, String> romaHundredsPlace = new HashMap<>() {
-        {
-            put(1, "C");
-            put(2, "CC");
-            put(3, "CCC");
-            put(4, "CD");
-            put(5, "D");
-            put(6, "DC");
-            put(7, "DCC");
-            put(8, "DCCC");
-            put(9, "CM");
-        }
-    };
-    private final Map<Integer, String> romaThousandsPlace = new HashMap<>() {
-        {
-            put(1, "M");
-            put(2, "MM");
-            put(3, "MMM");
-        }
-    };
+    private static final Map<Integer, String> ROMA_ONES_PLACE = Map.of(
+            1, "I",
+            2, "II",
+            3, "III",
+            4, "IV",
+            5, "V",
+            6, "VI",
+            7, "VII",
+            8, "VIII",
+            9, "IX"
+    );
+    private static final Map<Integer, String> ROMA_TENS_PLACE = Map.of(
+            1, "X",
+            2, "XX",
+            3, "XXX",
+            4, "XL",
+            5, "L",
+            6, "LX",
+            7, "LXX",
+            8, "LXXX",
+            9, "XC"
+    );
+    private static final Map<Integer, String> ROMA_HUNDREDS_PLACE = Map.of(
+            1, "C",
+            2, "CC",
+            3, "CCC",
+            4, "CD",
+            5, "D",
+            6, "DC",
+            7, "DCC",
+            8, "DCCC",
+            9, "CM"
+    );
+    private static final Map<Integer, String> ROMA_THOUSANDS_PLACE = Map.of(
+            1, "M",
+            2, "MM",
+            3, "MMM"
+    );
 
     @Override
     public List<String> transMapping(List<String> strList) {
@@ -60,16 +52,16 @@ public class RomanNumberStringifier extends AbstractStringifier {
                             Integer key = Integer.parseInt(s);
                             switch(i){
                                 case 0:
-                                    arr.add(this.romaOnesPlace.get(key));
+                                    arr.add(ROMA_ONES_PLACE.get(key));
                                     break;
                                 case 1:
-                                    arr.add(this.romaTensPlace.get(key));
+                                    arr.add(ROMA_TENS_PLACE.get(key));
                                     break;
                                 case 2:
-                                    arr.add(this.romaHundredsPlace.get(key));
+                                    arr.add(ROMA_HUNDREDS_PLACE.get(key));
                                     break;
                                 case 3:
-                                    arr.add(this.romaThousandsPlace.get(key));
+                                    arr.add(ROMA_THOUSANDS_PLACE.get(key));
                             }
                             return arr;
                         }, (arr1, arr2) -> null
